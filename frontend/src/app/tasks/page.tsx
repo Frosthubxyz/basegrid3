@@ -54,7 +54,7 @@ export default function TasksMarketplacePage() {
             </svg>
           </div>
 
-          {/* Category Filter Chips */}
+          {/* Category Filter Chips - Added in Task 14 */}
           <div className="flex flex-wrap justify-center gap-3">
             {["All", "AI Inference", "Data Processing", "Model Training", "Rendering", "Other"].map(category => (
               <button 
