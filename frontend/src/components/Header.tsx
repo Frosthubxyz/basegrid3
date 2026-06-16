@@ -27,6 +27,7 @@ export function Header() {
           <Link href="/leaderboard" className="text-sm font-medium text-zinc-300 hover:text-white hover:underline underline-offset-4 decoration-blue-500 transition-all">
             Leaderboard
           </Link>
+          {/* Dark Mode Toggle - Added in Task 17 */}
           <button className="p-2 text-zinc-400 hover:text-white hover:bg-zinc-800 rounded-lg transition-colors" title="Toggle Theme (Coming Soon)">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
