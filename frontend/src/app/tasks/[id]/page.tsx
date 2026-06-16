@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 export default function TaskDetailsPage() {
   const [taskState, setTaskState] = useState<"open" | "accepted" | "submitted">("open");
   const [proof, setProof] = useState("");
+  const [file, setFile] = useState<File | null>(null);
 
   const handleAccept = async () => {
     const loadingToast = toast.loading("Confirming transaction on Base...");
@@ -18,11 +19,19 @@ export default function TaskDetailsPage() {
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (proof.trim()) {
-      const loadingToast = toast.loading("Submitting proof of work...");
-      await new Promise(resolve => setTimeout(resolve, 1500));
+    if (proof.trim() || file) {
+      const loadingToast = toast.loading("Uploading to IPFS and submitting proof...");
+      
+      // Mock IPFS Upload
+      if (file) {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        console.log(`Uploaded ${file.name} to IPFS`);
+      } else {
+        await new Promise(resolve => setTimeout(resolve, 1500));
+      }
+      
       setTaskState("submitted");
-      toast.success("Proof submitted successfully!", { id: loadingToast });
+      toast.success("Proof submitted to IPFS successfully!", { id: loadingToast });
     }
   };
 
@@ -114,10 +123,19 @@ export default function TaskDetailsPage() {
                   type="text"
                   value={proof}
                   onChange={(e) => setProof(e.target.value)}
-                  placeholder="https://..."
+                  placeholder="https://... or leave blank to upload file"
                   className="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                  required
                 />
+                
+                <div className="flex flex-col gap-2 mt-2">
+                  <label className="text-sm text-zinc-400">Or Upload File to IPFS</label>
+                  <input
+                    type="file"
+                    onChange={(e) => setFile(e.target.files?.[0] || null)}
+                    className="block w-full text-sm text-zinc-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-500/10 file:text-blue-400 hover:file:bg-blue-500/20"
+                  />
+                </div>
+                
                 <button 
                   type="submit"
                   className="mt-2 w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-colors"
